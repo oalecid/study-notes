@@ -3,8 +3,15 @@ package operacoes;
 // static permite que o item seja utilizado mesmo que a classe não esteja instanciada
 
 public class Calculadora {
+  // Membros static pertencem à classe, não ao objeto
+  // Podem ser acessados diretamente pela classe também
+  // As instâncias vão compartilhar o mesmo membro static (todas as instâncias terão o mesmo)
+  public static int ultimoResultado;
+  
   public static int soma(int a, int b) {
-    return a + b;
+    ultimoResultado = a + b;
+
+    return ultimoResultado;
   }
 }
 
