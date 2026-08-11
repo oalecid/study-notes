@@ -6,6 +6,8 @@
   Na prática, um mesmo método pode ter diferentes comportamentos
   de acordo com a classe que está sendo executada, mesmo que ambas
   herdem de uma mesma superclasse.
+
+  O polimorfismo facilita um pouco a tipagem e manutenção
 */
 
 abstract class Animal {
