@@ -53,6 +53,11 @@ class ListaDePessoas<T extends Pessoa> {
     // Sem o generic (usando diretamente a superclasse), ao pegar o valor via obterPessoa(),
     // não seria possível usar seus métodos customizados, como o atacar() e minerar()
 
+    // Sem o generic, provavelmente seria necessário usar o tipo Object
+    // e depois fazer uma verificação/conversão de tipo com instanceof e casting
+    // se quisesse usar os métodos atacar() e minerar()
+    // depois de obter o valor via obterPessoa()
+
     return lista.get(indice);
   }
 
