@@ -40,12 +40,12 @@ public class Main {
 
     boolean fulanoFoiAdicionadoNovamente = set1.add("Fulano");
 
-    boolean setContemBeltrano = set1.contains("Beltrano");
+    boolean contemBeltrano = set1.contains("Beltrano");
 
     System.out.println("Set: " + set1);
     System.out.println("fulanoFoiAdicionado: " + fulanoFoiAdicionado);
     System.out.println("fulanoFoiAdicionadoNovamente: " + fulanoFoiAdicionadoNovamente);
-    System.out.println("setContemBeltrano: " + setContemBeltrano);
+    System.out.println("contemBeltrano: " + contemBeltrano);
   }
 
   public static void main(String[] args) {
