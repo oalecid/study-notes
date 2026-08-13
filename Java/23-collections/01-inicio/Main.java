@@ -18,19 +18,34 @@ import java.util.HashSet;
 
 public class Main {
   public static void exemploSet() {
-    // Sets não permitem duplicações
+    /*
+      - Sets não permitem duplicações
+
+      - Não garantem a ordem dos elementos
+
+      - Não podem ser acessados via índice,
+      só por laços de repetição e alguns outros métodos
+
+      - Entretanto, permitem que verifique se contém um item
+      com contains()
+    */
 
     // Set é a interface e HashSet é a classe
     Set<String> set1 = new HashSet<>();
 
-    set1.add("Fulano");
+    boolean fulanoFoiAdicionado = set1.add("Fulano");
+
     set1.add("Cicrano");
     set1.add("Beltrano");
 
-    set1.add("Fulano");
-    set1.add("Fulano");
+    boolean fulanoFoiAdicionadoNovamente = set1.add("Fulano");
+
+    boolean setContemBeltrano = set1.contains("Beltrano");
 
     System.out.println("Set: " + set1);
+    System.out.println("fulanoFoiAdicionado: " + fulanoFoiAdicionado);
+    System.out.println("fulanoFoiAdicionadoNovamente: " + fulanoFoiAdicionadoNovamente);
+    System.out.println("setContemBeltrano: " + setContemBeltrano);
   }
 
   public static void main(String[] args) {
