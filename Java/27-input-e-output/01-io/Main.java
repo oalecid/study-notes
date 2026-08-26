@@ -52,7 +52,14 @@ public class Main {
 
   public static void main(String[] args) {
     exemploEscrita("potatochips.txt");
-
     exemploLeitura("potatochips.txt");
+
+    // Se for usar pastas precisa criar a pasta antes
+    exemploEscrita("test1\\potatochips.txt");
+    exemploLeitura("test1\\potatochips.txt");
+
+    // Pastas também podem ser escritas assim
+    exemploEscrita("test2/potatochips.txt");
+    exemploLeitura("test2/potatochips.txt");
   }
 }
