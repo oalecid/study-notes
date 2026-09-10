@@ -1,3 +1,5 @@
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -10,25 +12,35 @@ import javafx.scene.layout.HBox;
 
 public class MinhaAplicacao extends Application {
   public void start(Stage palcoPrincipal) {
-    String urlDoVideo = "";
+    try {
+      String urlDoVideo = "./assets/nature.mp4";
 
-    Media media = new Media(urlDoVideo);
+      File file = new File(urlDoVideo);
 
-    MediaPlayer mediaPlayer = new MediaPlayer(media);
+      Media media = new Media(file.toURI().toString());
 
-    MediaView mediaView = new MediaView(mediaPlayer);
+      // Desse jeito aqui não funcionou:
+      // String urlDoVideo = "file:assets/nature.mp4";
+      // Media media = new Media(urlDoVideo);
 
-    HBox hBox = new HBox();
-    hBox.getChildren().add(mediaView);
+      MediaPlayer mediaPlayer = new MediaPlayer(media);
 
-    Scene cena = new Scene(hBox, 500, 500);
+      MediaView mediaView = new MediaView(mediaPlayer);
 
-    palcoPrincipal.setTitle("Teste Vídeo");
-    palcoPrincipal.setScene(cena);
+      HBox hBox = new HBox();
+      hBox.getChildren().add(mediaView);
 
-    palcoPrincipal.show();
+      Scene cena = new Scene(hBox, 720, 480);
 
-    mediaPlayer.play();
+      palcoPrincipal.setTitle("Teste Vídeo");
+      palcoPrincipal.setScene(cena);
+
+      palcoPrincipal.show();
+
+      mediaPlayer.play();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   public static void main(String[] args) {
