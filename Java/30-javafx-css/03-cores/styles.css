@@ -1,0 +1,22 @@
+.button {
+  -fx-font-size: 40px;
+  -fx-font-weight: bold;
+}
+
+.button--red {
+  -fx-background-color: red;
+}
+
+.button--green {
+  -fx-background-color: rgb(0, 255, 0);
+}
+
+.button--blue {
+  -fx-background-color: #0000ff;
+  -fx-text-fill: white;
+}
+
+.button--blue-with-transparency {
+  -fx-background-color: rgb(0, 0, 255, 0.5);
+  -fx-text-fill: #fff;
+}
