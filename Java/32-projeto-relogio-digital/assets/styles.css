@@ -1,0 +1,9 @@
+.clock-box {
+  -fx-background-color: black;
+}
+
+.clock-text {
+  -fx-font-size: 40px;
+  -fx-font-weight: bold;
+  -fx-text-fill: yellow;
+}
