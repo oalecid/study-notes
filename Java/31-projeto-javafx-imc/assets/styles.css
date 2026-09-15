@@ -1,0 +1,29 @@
+.form-box {
+  -fx-spacing: 15;
+  -fx-padding: 20px;
+}
+
+.form-label {
+  -fx-font-weight: bold;
+  -fx-font-size: 16px;
+}
+
+.form-text-field {
+  -fx-padding: 10px;
+}
+
+.form-button {
+  -fx-max-width: Infinity;
+
+  -fx-padding: 10px;
+
+  -fx-background-color: rgb(33, 33, 33);
+
+  -fx-text-fill: #fff;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+}
+
+.form-result {
+  -fx-font-size: 16px;
+}
