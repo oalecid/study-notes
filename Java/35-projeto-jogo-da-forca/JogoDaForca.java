@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class JogoDaForca {
@@ -13,41 +14,58 @@ public class JogoDaForca {
   
   private final Scanner scanner = new Scanner(System.in);
 
-  public void configurarJogo() {
+  public void obterPalavra() {
     System.out.print("\nDesafiante, digite a palavra desejada: ");
 
-    palavra = scanner.nextLine().toLowerCase();
+    palavra = scanner.nextLine().toLowerCase(Locale.ROOT);
 
-    if (palavra.length() == 0) {
+    while (palavra.isEmpty()) {
       System.out.println("Valor inválido, por favor, tente novamente!");
 
-      configurarJogo();
-    } else {
-      palavraOcultaArr = new char[palavra.length()];
+      System.out.print("\nDesafiante, digite a palavra desejada: ");
 
-      Arrays.fill(palavraOcultaArr, '_');
-
-      System.out.println("Muito bem, desafiado, prepare-se para começar!\n");
+      palavra = scanner.nextLine().toLowerCase(Locale.ROOT);
     }
+
+    palavraOcultaArr = new char[palavra.length()];
+
+    Arrays.fill(palavraOcultaArr, '_');
+
+    System.out.println("Muito bem, desafiado, prepare-se para começar!\n");
+  }
+
+  public void configurarJogo() {
+    jogoEmAndamento = true;
+    tentativasRestantes = TENTATIVAS;
+    venceuOJogo = false;
+
+    obterPalavra();
   }
 
   public String obterProximoChute() {
     System.out.print("Digite uma letra ou palavra: ");
 
-    String chute = scanner.nextLine().toLowerCase();
+    String chute = scanner.nextLine().toLowerCase(Locale.ROOT);
 
     System.out.println();
 
     return chute;
   } 
 
-  public void verificarChute(String chute) {
+  public void verificarChute(String chute) {    
+    // Não digitou nada
+    if (chute.length() == 0) {
+      System.out.println("Valor inválido, por favor, tente novamente!");
+
+      return;
+    }
+
     // Acertou ao chutar uma letra
     if (chute.length() == 1 && palavra.contains(chute)) {
       char chuteDeChar = chute.charAt(0);
 
       if (new String(palavraOcultaArr).indexOf(chuteDeChar) != -1) {
-        System.out.println("Você já chutou essa letra antes!");
+        System.out.println("Essa letra já foi revelada!");
 
         return;
       }
@@ -70,16 +88,9 @@ public class JogoDaForca {
     }
     
     // Acertou ao chutar uma palavra
-    if (chute.length() >= 1 && chute.equals(palavra)) {
+    if (chute.equals(palavra)) {
       jogoEmAndamento = false;
       venceuOJogo = true;
-
-      return;
-    }
-    
-    // Não digitou nada
-    if (chute.length() == 0) {
-      System.out.println("Valor inválido, por favor, tente novamente!");
 
       return;
     }
@@ -97,14 +108,10 @@ public class JogoDaForca {
   }
 
   public void iniciarJogo() {
-    jogoEmAndamento = true;
-
     configurarJogo();
 
     while (jogoEmAndamento) {
-      if (palavra.length() > 0) {
-        System.out.println("Palavra: " + Arrays.toString(palavraOcultaArr));
-      }
+      System.out.println("Palavra: " + Arrays.toString(palavraOcultaArr));
 
       String novoChute = obterProximoChute();
 
