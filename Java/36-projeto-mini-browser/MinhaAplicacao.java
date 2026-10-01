@@ -67,7 +67,9 @@ public class MinhaAplicacao extends Application {
   }
 
   public String formatarUrl(String url) {
-    if (!url.startsWith("http://") || !url.startsWith("https://")) {
+    System.out.println("url " + url);
+
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
       return "http://" + url;
     }
 
