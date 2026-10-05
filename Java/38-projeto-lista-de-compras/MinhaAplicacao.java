@@ -2,22 +2,28 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 
 import javafx.geometry.Insets;
 
 import java.util.List;
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
+
 public class MinhaAplicacao extends Application {
-  List<HBox> itemsList = new ArrayList<>();
+  // private List<String> itemsList = new ArrayList<>();
+  private ListView<String> listView = new ListView<>();
+
 
   @Override
   public void start(Stage stage) {
@@ -25,21 +31,44 @@ public class MinhaAplicacao extends Application {
     
     TextField formTextField = new TextField();
 
-    VBox listVBox = new VBox();
-    listVBox.setSpacing(10);
-
     Button formSubmitButton = new Button("Adicionar");
     formSubmitButton.setStyle("-fx-max-width: Infinity;");
-    formSubmitButton.setOnAction((event) -> addItem(formTextField, listVBox));
 
     Label listTitleLabel = new Label("Lista de Compras:");
 
     Button exportButton = new Button("Exportar Lista");
     exportButton.setStyle("-fx-max-width: Infinity;");
 
-    VBox vBox = new VBox(formLabel, formTextField, formSubmitButton, listTitleLabel, listVBox, exportButton);
+    // O professor usou um alista auxiliar, mas eu acho que não vai ser necessário
+    // ObservableList<String> observableList = FXCollections.observableArrayList(itemsList);
+
+    ObservableList<String> observableList = FXCollections.observableArrayList();
+    listView.setItems(observableList);
+
+    VBox vBox = new VBox(formLabel, formTextField, formSubmitButton, listTitleLabel, listView, exportButton);
     vBox.setPadding(new Insets(15));
     vBox.setSpacing(15);
+
+    formSubmitButton.setOnAction((event) -> {
+      String newItemName = formTextField.getText();
+
+      if (!newItemName.isEmpty()) {
+        // O professor escreveu assim,
+        // mas eu acho que dá só pra usar o ObservableList mesmo 
+
+        // Acho que ele já deixa tudo sincronizado sem precisar adicionar em
+        // duas listas
+
+        // itemsList.add(newItemName);
+        // listView.getItems().add(newItemName);
+
+        observableList.add(newItemName);
+
+        formTextField.clear();
+      }
+    });
+
+    exportButton.setOnAction((event) -> exportList(observableList));
 
     Scene scene = new Scene(vBox, 500, 500);
 
@@ -49,34 +78,20 @@ public class MinhaAplicacao extends Application {
     stage.show();
   }
 
-  public void addItem(TextField textField, VBox listVBox) {
-    String itemName = textField.getText();
+  public void exportList(List<String> exportedList) {
+    try {
+      File newFile = new File("listaDeCompras.txt");
 
-    Label newItem = new Label(itemName);
+      PrintWriter writer = new PrintWriter(newFile);
 
-    Button removeItemButton = new Button("Remover");
+      for (String exportedItemName : exportedList) {
+        writer.println(exportedItemName);
+      }
 
-    // Region para adicionar espaço entre itens
-    Region region = new Region();
-    HBox.setHgrow(region, Priority.ALWAYS);
-
-    HBox hBox = new HBox(newItem, region, removeItemButton);
-
-    removeItemButton.setOnAction((event) -> removeItem(listVBox, hBox));
-
-    listVBox.getChildren().add(hBox);
-
-    itemsList.add(hBox);
-
-    textField.clear();
-  }
-
-  public void removeItem(VBox listVBox, HBox itemNode) {
-    int itemIndex = itemsList.indexOf(itemNode);
-
-    listVBox.getChildren().remove(itemIndex);
-
-    itemsList.remove(itemIndex);
+      writer.close();
+    } catch (Exception e) {
+      System.out.println("Erro ao exportar lista: " + e.getMessage());
+    }
   }
 
   public static void main(String[] args) {
