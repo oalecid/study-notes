@@ -7,6 +7,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import java.util.Scanner;
 
@@ -17,6 +19,8 @@ public class MinhaAplicacao {
     System.out.print("Digite o nome da cidade: ");
 
     String cidade = scanner.nextLine();
+
+    scanner.close();
 
     try {
       String dadosClimaticos = getDadosClimaticos(cidade);
@@ -32,8 +36,22 @@ public class MinhaAplicacao {
     }
   }
 
-  static String getDadosClimaticos(String cidade) {
-    return "";
+  static String getDadosClimaticos(String cidade) throws Exception {
+    String apiKey = Files.readString(Paths.get("api-key.txt")).trim();
+
+    String formataNomeCidade = URLEncoder.encode(cidade, StandardCharsets.UTF_8);
+
+    String apiUrl = "http://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + formataNomeCidade;
+
+    HttpRequest request = HttpRequest.newBuilder()
+      .uri(URI.create(apiUrl))
+      .build();
+
+    HttpClient client = HttpClient.newHttpClient();
+
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString()); // Configura para tratar a resposta como String
+
+    return response.body();
   }
 
   static void imprimirDadosClimaticos(String dadosClimaticos) {
