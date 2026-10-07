@@ -17,7 +17,7 @@ import javafx.geometry.Insets;
 import java.util.List;
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 
 public class MinhaAplicacao extends Application {
