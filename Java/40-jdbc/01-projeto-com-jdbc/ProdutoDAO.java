@@ -67,21 +67,22 @@ public class ProdutoDAO {
 
     try (
       PreparedStatement stmt = CONEXAO_DB.prepareStatement(comandoSql);
-      ResultSet rs = stmt.executeQuery()
     ) {
       stmt.setInt(1, idDoProduto);
 
-      // next() verifica se há resultado
-      if (rs.next()) {
-        Produto produto = new Produto();
+      try (ResultSet rs = stmt.executeQuery()) {
+        // next() verifica se há resultado
+        if (rs.next()) {
+          Produto produto = new Produto();
 
-        produto.setId(rs.getInt("id_produto"));
-        produto.setNome(rs.getString("nome_produto"));
-        produto.setQuantidade(rs.getInt("quantidade"));
-        produto.setPreco(rs.getDouble("preco"));
-        produto.setStatus(rs.getString("status"));
+          produto.setId(rs.getInt("id_produto"));
+          produto.setNome(rs.getString("nome_produto"));
+          produto.setQuantidade(rs.getInt("quantidade"));
+          produto.setPreco(rs.getDouble("preco"));
+          produto.setStatus(rs.getString("status"));
 
-        return produto;
+          return produto;
+        }
       }
     } catch (SQLException e) {
       System.err.println("Erro ao consultar por ID: " + e.getMessage());
