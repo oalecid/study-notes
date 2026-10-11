@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Data Access Object
 public class ProdutoDAO {
   private final Connection CONEXAO_DB;
   
@@ -15,7 +16,7 @@ public class ProdutoDAO {
 
   // Inserir novo produto
   public void inserir(Produto produto) {
-    String comandoSql = "INSERT INTRO produtos (nome_produto, quantidade, preco, status) VALUES (?, ?, ?, ?)";
+    String comandoSql = "INSERT INTO produtos (nome_produto, quantidade, preco, status) VALUES (?, ?, ?, ?)";
 
     // O PreparedStatement facilita a definição dos campos
     // O try with resources facilita declarar sem precisar fechar com close() depois
