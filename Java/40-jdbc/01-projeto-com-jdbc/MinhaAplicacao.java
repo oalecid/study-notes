@@ -47,6 +47,31 @@ public class MinhaAplicacao extends Application {
     VBox vBox = new VBox();
     vBox.setPadding(new Insets(10, 10, 10, 10));
     vBox.setSpacing(10);
+
+    HBox nomeProdutoBox = new HBox();
+    nomeProdutoBox.setSpacing(10);
+    Label nomeLabel = new Label("Produto:");
+    nomeInput = new TextField();
+    nomeProdutoBox.getChildren().addAll(nomeLabel, nomeInput);
+
+    HBox quantidadeProdutoBox = new HBox();
+    quantidadeProdutoBox.setSpacing(10);
+    Label quantidadeLabel = new Label("Quantidade:");
+    quantidadeInput = new TextField();
+    quantidadeProdutoBox.getChildren().addAll(quantidadeLabel, nomeInput);
+
+    HBox precoProdutoBox = new HBox();
+    precoProdutoBox.setSpacing(10);
+    Label precoLabel = new Label("Preço:");
+    precoInput = new TextField();
+    precoProdutoBox.getChildren().addAll(precoLabel, nomeInput);
+
+    HBox statusProdutoBox = new HBox();
+    statusProdutoBox.setSpacing(10);
+    Label statusLabel = new Label("Status:");
+    statusCombobBox = new ComboBox<>();
+    statusCombobBox.getItems().addAll("Estoque Normal", "Estoque Baixo");
+    statusProdutoBox.getChildren().addALl(statusLabel, statusCombobBox);
   }
 
   public static void main(String[] args) {
