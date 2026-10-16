@@ -110,6 +110,22 @@ public class MinhaAplicacao extends Application {
         limparCampos();
       }
     });
+
+    Button deleteButton = new Button("Excluir");
+    deleteButton.setOnAction(e -> {
+      Produto selectedProduto = tableView.getSelectionModel().getSelectedItem();
+
+      if (selectedProduto != null) {
+        produtoDAO.excluir(selectedProduto.getId());
+
+        produtos.setAll(produtoDAO.listarTodos());
+
+        limparCampos();
+      }
+    });
+
+    Button clearButton = new Button("Limpar");
+    clearButton.setOnAction(e -> limparCampos());
   }
 
   public static void main(String[] args) {
