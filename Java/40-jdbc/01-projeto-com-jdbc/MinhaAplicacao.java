@@ -71,7 +71,25 @@ public class MinhaAplicacao extends Application {
     Label statusLabel = new Label("Status:");
     statusCombobBox = new ComboBox<>();
     statusCombobBox.getItems().addAll("Estoque Normal", "Estoque Baixo");
-    statusProdutoBox.getChildren().addALl(statusLabel, statusCombobBox);
+    statusProdutoBox.getChildren().addAll(statusLabel, statusCombobBox);
+
+    Button addButton = new Button("Adicionar");
+    addButton.setOnAction(e -> {
+      String preco = precoInput.getText().replace(",", ".");
+
+      Produto produto = new Produto(
+        nomeInput.getText(),
+        Integer.parseInt(quantidadeInput.getText()),
+        Double.parseDouble(preco),
+        statusCombobBox.getValue(),
+      );
+
+      produtoDAO.inserir(produto);
+
+      produtos.setAll(produtoDAO.listarTodos());
+
+      limparCampos();
+    });
   }
 
   public static void main(String[] args) {
