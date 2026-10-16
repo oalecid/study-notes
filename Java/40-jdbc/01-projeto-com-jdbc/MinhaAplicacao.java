@@ -75,13 +75,13 @@ public class MinhaAplicacao extends Application {
 
     Button addButton = new Button("Adicionar");
     addButton.setOnAction(e -> {
-      String preco = precoInput.getText().replace(",", ".");
+      String precoFormatado = precoInput.getText().replace(",", ".");
 
       Produto produto = new Produto(
         nomeInput.getText(),
         Integer.parseInt(quantidadeInput.getText()),
-        Double.parseDouble(preco),
-        statusCombobBox.getValue(),
+        Double.parseDouble(precoFormatado),
+        statusCombobBox.getValue()
       );
 
       produtoDAO.inserir(produto);
@@ -89,6 +89,26 @@ public class MinhaAplicacao extends Application {
       produtos.setAll(produtoDAO.listarTodos());
 
       limparCampos();
+    });
+
+    Button updateButton = new Button("Atualizar");
+    updateButton.setOnAction(e -> {
+      Produto selectedProduto = tableView.getSelectionModel().getSelectedItem(); // Pega o produto selecionado na tabela
+
+      if (selectedProduto != null) {
+        String precoFormatado = precoInput.getText().replace(",", ".");
+
+        selectedProduto.setNome(nomeInput.getText());
+        selectedProduto.setQuantidade(Integer.parseInt(quantidadeInput.getText()));
+        selectedProduto.setPreco(Double.parseDouble(precoFormatado));
+        selectedProduto.setStatus(statusCombobBox.getValue());
+
+        produtoDAO.atualizar(selectedProduto);
+
+        produtos.setAll(produtoDAO.listarTodos());
+
+        limparCampos();
+      }
     });
   }
 
