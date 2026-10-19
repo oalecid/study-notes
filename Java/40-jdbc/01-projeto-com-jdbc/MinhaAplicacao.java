@@ -180,6 +180,26 @@ public class MinhaAplicacao extends Application {
     }
   }
 
+  private void limparCampos() {
+    nomeInput.clear();
+    quantidadeInput.clear();
+    precoInput.clear();
+    statusCombobBox.setValue(null);
+  }
+
+  /**
+   * Cria coluna para a TableView
+   * @param title O título da coluna que será exibido no cabeçalho
+   * @param property A propriedade do objeto Produto que esta coluna deve exibir
+   * @return A coluna configurada para a TableView
+  */
+  private TableColumn<Produto, String> criarColuna(String title, String property) {
+    TableColumn<Produto, String> col = new TableColumn<>(title);
+    col.setCellValueFactory(new PropertyValueFactory<>(property)); // Define a propriedade da coluna
+    
+    return col;
+  }
+
   public static void main(String[] args) {
     launch(args);
   }
