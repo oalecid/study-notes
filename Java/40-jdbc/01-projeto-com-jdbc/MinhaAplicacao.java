@@ -126,6 +126,36 @@ public class MinhaAplicacao extends Application {
 
     Button clearButton = new Button("Limpar");
     clearButton.setOnAction(e -> limparCampos());
+
+    tableView = new TableView<>();
+    tableView.setItems(produtos);
+
+    // Ajusta o tamanho das colunas
+    // Com essa política específica, a largura de todas as colunas juntas deve ser igual ao tamanho da tabela
+    // (acredito que elas se esticam para ocupar tudo)
+    tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
+    // Cria uma lista de colunas para a tabela
+    List<TableColumn<Produto, ?>> columns = List.off(
+      criarColuna("ID", "id"),
+      criarColuna("Produto", "nome"),
+      criarColuna("Quantidade", "quantidade"),
+      criarColuna("Preço", "preco"),
+      criarColuna("Status", "status")
+    );
+
+    tableView.getColumns().addAll(columns);
+
+    // Define o que acontece quando algo muda na tabela
+    // no caso, a seleção de itens
+    tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+      if (newSelection != null) {
+        nomeInput.setText(newSelection.getNome());
+        quantidadeInput.setText(String.valueOf(newSelection.getQuantidade()));
+        precoInput.setText(String.valueOf(newSelection.getPreco()));
+        statusCombobBox.setValue(newSelection.getStatus());
+      }
+    });
   }
 
   public static void main(String[] args) {
