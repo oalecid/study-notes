@@ -19,7 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
-
+import java.sql.SQLException;
 import java.util.List;
 
 public class MinhaAplicacao extends Application {
@@ -156,6 +156,28 @@ public class MinhaAplicacao extends Application {
         statusCombobBox.setValue(newSelection.getStatus());
       }
     });
+
+    HBox buttonBox = new HBox();
+    buttonBox.setSpacing(10);
+    buttonBox.getChildren().addAll(addButton, updateButton, deleteButton, clearButton);
+
+    vBox.getChildren().addAll(nomeProdutoBox, quantidadeProdutoBox, precoProdutoBox, statusProdutoBox, buttonBox, tableView);
+
+    Scene scene = new Scene(vBox, 800, 600);
+    // scene.getStylesheets().add("styles-produtos.css");
+
+    palcoPrincipal.setScene(scene);
+    palcoPrincipal.show();
+  }
+
+  // stop() é chamado quando a aplicação é encerrada
+  @Override
+  public void stop() {
+    try {
+      conexaoDB.close();
+    } catch (SQLException e) {
+      System.err.println("Erro ao fechar conexão: " + e.getMessage());
+    }
   }
 
   public static void main(String[] args) {
