@@ -17,4 +17,10 @@
 
 # IMPORTANTE PARA O PROJETO
 
-Para rodar esse projeto específico é preciso compilar e rodar o arquivo CriadorTabela.java antes de tudo para criar a tabela de produtos.
+Para rodar esse projeto específico é preciso compilar e rodar o arquivo **CriadorTabela.java** antes de tudo para criar a tabela de produtos.
+
+# Sobre os arquivos de execução
+
+**Main.java** contém uma versão em que o sistema foi utilizado via terminal.
+
+**MinhaAplicacao.java** contém uma versão com interface gráfica criada via JavaFX.
