@@ -58,13 +58,13 @@ public class MinhaAplicacao extends Application {
     quantidadeProdutoBox.setSpacing(10);
     Label quantidadeLabel = new Label("Quantidade:");
     quantidadeInput = new TextField();
-    quantidadeProdutoBox.getChildren().addAll(quantidadeLabel, nomeInput);
+    quantidadeProdutoBox.getChildren().addAll(quantidadeLabel, quantidadeInput);
 
     HBox precoProdutoBox = new HBox();
     precoProdutoBox.setSpacing(10);
     Label precoLabel = new Label("Preço:");
     precoInput = new TextField();
-    precoProdutoBox.getChildren().addAll(precoLabel, nomeInput);
+    precoProdutoBox.getChildren().addAll(precoLabel, precoInput);
 
     HBox statusProdutoBox = new HBox();
     statusProdutoBox.setSpacing(10);
@@ -136,7 +136,7 @@ public class MinhaAplicacao extends Application {
     tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
     // Cria uma lista de colunas para a tabela
-    List<TableColumn<Produto, ?>> columns = List.off(
+    List<TableColumn<Produto, ?>> columns = List.of(
       criarColuna("ID", "id"),
       criarColuna("Produto", "nome"),
       criarColuna("Quantidade", "quantidade"),
