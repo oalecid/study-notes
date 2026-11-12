@@ -40,7 +40,7 @@ public class Produto {
     return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
