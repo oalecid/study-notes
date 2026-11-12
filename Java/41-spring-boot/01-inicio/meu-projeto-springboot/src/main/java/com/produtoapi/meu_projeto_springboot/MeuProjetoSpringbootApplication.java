@@ -3,6 +3,8 @@ package com.produtoapi.meu_projeto_springboot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// Classe que inicia a aplicação
+
 @SpringBootApplication
 public class MeuProjetoSpringbootApplication {
 
