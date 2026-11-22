@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      font-family: system-ui, sans-serif;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    th, td {
+      padding: 20px;
+
+      text-align: left;
+    }
+
+    thead tr {
+      background-color: #000;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    tbody tr:nth-child(2n) {
+      background-color: #ececec;
+    }
+
+    tbody tr:nth-child(2n + 1) {
+      background-color: #cccccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de produtos</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Quantidade</th>
+        <th>Preço</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="error-message hidden"></div>
+
+  <script>
+    const tableEl = document.querySelector("table");
+    const errorMessageEl = document.querySelector(".error-message");
+
+    main();
+
+    async function main() {
+      try {
+        const products = await getProducts();
+
+        fillTableLines(products);
+      } catch {
+        showErrorMessage("Erro ao carregar os itens.");
+      }
+    }
+
+    function fillTableLines(items) {
+      const tableBodyEl = tableEl.querySelector("tbody");
+
+      function addItemProperty(tableRowEl, value) {
+        const newTableDataEl = document.createElement("td");
+
+        newTableDataEl.innerHTML = value;
+
+        tableRowEl.appendChild(newTableDataEl);
+      }
+
+      for (const item of items) {
+        const newTableRowEl = document.createElement("tr");
+        
+        addItemProperty(newTableRowEl, item.id);
+        addItemProperty(newTableRowEl, item.nome);
+        addItemProperty(newTableRowEl, item.quantidade);
+        addItemProperty(newTableRowEl, item.preco);
+        addItemProperty(newTableRowEl, item.status);
+
+        tableBodyEl.appendChild(newTableRowEl);
+      }
+    }
+
+    async function getProducts() {
+      const response = await fetch("http://localhost:8080/produtos");
+
+      if (!response.ok) {
+        throw new Error("Não foi possível realizar a operação");
+      }
+
+      const json = await response.json();
+
+      return json;
+    }
+
+    function showErrorMessage(msg) {
+      errorMessageEl.innerHTML = msg;
+
+      errorMessageEl.classList.remove("hidden");
+      tableEl.classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
