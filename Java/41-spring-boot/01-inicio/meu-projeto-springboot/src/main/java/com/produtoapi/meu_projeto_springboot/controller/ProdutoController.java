@@ -13,6 +13,7 @@ import java.util.Optional;
 // O controller lida com as requisições e chama os métodos adequados
 // para cada uma
 
+// @CrossOrigin(origins = "https://exemplo.com.br")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/produtos")
